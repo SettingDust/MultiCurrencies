@@ -18,7 +18,7 @@ static def getBuildNumber() {
     return ""
 }
 
-static def getStable(){
+static def getStable() {
     if (System.getenv("GITHUB_REF") == null || System.getenv("GITHUB_REF").endsWith("-dev")) {
         return "unstable"
     }
@@ -42,13 +42,13 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+                username = project.findProperty("gpr.user") ?: System.getenv("GPR_USER")
+                password = project.findProperty("gpr.key") ?: System.getenv("GPR_API_KEY")
             }
         }
     }
     publications {
-        gpr(MavenPublication) {
+        create("gpr", MavenPublication.class) {
             from(components.java)
         }
     }

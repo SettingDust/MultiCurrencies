@@ -51,8 +51,24 @@ public class TextUtil {
                 objects.add(parseFormatText("{" + subString));
             }
         }
+        Text text = null;
+        for (Object o: objects) {
+            if (o instanceof Text) {
+                text = getLastElement((Text) o);
+            } else if (o instanceof TextTemplate.Arg.Builder) {
+                if (text != null) {
+                    ((TextTemplate.Arg.Builder) o).format(text.getFormat());
+                }
+            }
+        }
         return TextTemplate.of(objects.toArray());
     }
+
+    private static Text getLastElement(Text text) {
+        List<Text> children = text.getChildren();
+        return children.isEmpty() ? text : children.get(children.size() - 1);
+    }
+
 
     public static Text parseFormatText(String in) {
         return TextSerializers.FORMATTING_CODE.deserializeUnchecked(in);

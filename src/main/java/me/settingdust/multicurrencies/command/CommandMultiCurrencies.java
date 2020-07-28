@@ -58,7 +58,6 @@ public class CommandMultiCurrencies extends AbstractCommand implements CommandEx
     @Override
     @SuppressWarnings("NullableProblems")
     public CommandResult execute(CommandSource src, CommandContext args) {
-        // TODO: 2020/7/27 确认帮助指令
         commandManager.process(src, "help " + COMMAND_LABEL);
         return CommandResult.success();
     }

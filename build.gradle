@@ -1,20 +1,57 @@
 plugins {
     id 'org.spongepowered.plugin' version '0.9.0'
+    id 'maven-publish'
 }
 
 repositories {
     mavenCentral()
 }
 
+def major = 1
+def minor = 0
+def patch = 1
+
+static def getBuildNumber() {
+    if (System.getenv("BUILD_NUMBER") != null) {
+        return System.getenv("BUILD_NUMBER").toString()
+    }
+    return ""
+}
+
+static def getStable(){
+    if (System.getenv("GITHUB_REF") == null || System.getenv("GITHUB_REF").endsWith("-dev")) {
+        return "unstable"
+    }
+    return ""
+}
+
 group = 'me.settingdust'
-version = '1.0-SNAPSHOT'
+version = "$major.$minor.$patch-b${getBuildNumber()}${if (!getStable().isBlank()) "-${getStable()}" else ""}"
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 dependencies {
-    compileOnly 'org.spongepowered:spongeapi:7.2.0'
+    implementation 'org.spongepowered:spongeapi:7.2.0'
     annotationProcessor 'org.spongepowered:spongeapi:7.2.0'
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }
 
 sponge.plugin.id = 'multi-currencies'

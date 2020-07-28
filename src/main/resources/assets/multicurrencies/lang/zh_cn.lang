@@ -1,0 +1,36 @@
+error {
+  missingMessage: "【缺失文本节点：{message_key}】"
+  missingPlayer: "&c指定玩家不存在"
+  missingCurrency: "&c指定货币不存在"
+  missingArgument: "&c缺少参数{name}"
+  missingAccount: "&c账户获取失败"
+  commandFailed: "&c指令执行失败"
+}
+info {
+  reload: "{name}已重载"
+  currentBalance: "&a{currency}：{amount}{symbol}"
+  addBalance:"&a{currency}增加了{amount}{symbol}"
+  removeBalance:"&a{currency}减少了{amount}{symbol}"
+}
+command {
+  multicurrencies {
+    description: "多币种管理相关指令"
+    subcommand: {
+      set {
+        description: "设置指定币种的货币数量，-m 控制发送通知"
+      }
+      add {
+        description: "添加指定币种的货币数量，-m 控制发送通知"
+      }
+      remove {
+        description: "减少指定币种的货币数量，-m 控制发送通知"
+      }
+      balance {
+        description: "显示指定币种的货币数量"
+      }
+      setall {
+        description: "设置全部用户指定币种货币数量"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+error {
+  missingMessage: "[Missing language key: {message_key}]"
+  missingPlayer: "&cCannot find the player"
+  missingCurrency: "&cCannot find the currency"
+  missingArgument: "&cArgument {name} is missing"
+  missingAccount: "&cGet economy account failed"
+  commandFailed: "&cCommand excute failed"
+}
+info {
+  reload: "{name} is reloaded"
+  currentBalance: "&a{currency}：{amount}{symbol}"
+  addBalance: "&a{currency} increase {amount}{symbol}"
+  removeBalance: "&a{currency} reduce {amount}{symbol}"
+}
+command {
+  multicurrencies {
+    description: "Multi currencies manage command"
+    subcommand: {
+      set {
+        description: "Set the currency amount. -m to send message to target"
+      }
+      add {
+        description: "Add the currency amount. -m to send message to target"
+      }
+      remove {
+        description: "Reduce the currency amount. -m to send message to target"
+      }
+      balance {
+        description: "Display the currency amount."
+      }
+      setall {
+        description: "Set all account the currency amount."
+      }
+    }
+  }
+}

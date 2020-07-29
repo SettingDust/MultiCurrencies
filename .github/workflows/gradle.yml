@@ -31,3 +31,8 @@ jobs:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_API_KEY: ${{ secrets.GPR_TOKEN }}
         run: ./gradlew build publish
+
+      - name: Publish to Ore
+        env:
+          ORE_KEY: ${{ secrets.ORE_KEY }}
+        run: ./gradlew oreDeploy
